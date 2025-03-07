@@ -300,8 +300,6 @@ func TestAcmeValidateTLSALPN01Challenge(t *testing.T) {
 		}
 	}
 
-	ALPNPort = strings.Split(ln.Addr().String(), ":")[1]
-
 	type alpnTestCase struct {
 		name         string
 		certificates []*x509.Certificate

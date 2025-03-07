@@ -25,11 +25,12 @@ func TestAcmeConfig(t *testing.T) {
 		works       bool
 	}{
 		{"unspecified-root", map[string]interface{}{
-			"enabled":         true,
-			"allowed_issuers": "*",
-			"allowed_roles":   "*",
-			"dns_resolver":    "",
-			"eab_policy_name": "",
+			"enabled":             true,
+			"allowed_issuers":     "*",
+			"allowed_roles":       "*",
+			"dns_resolver":        "",
+			"eab_policy_name":     "",
+			"alpn_challenge_port": 1500,
 		}, "acme/", true, true},
 		{"bad-policy-root", map[string]interface{}{
 			"enabled":                  true,
@@ -38,6 +39,7 @@ func TestAcmeConfig(t *testing.T) {
 			"default_directory_policy": "bad",
 			"dns_resolver":             "",
 			"eab_policy_name":          "",
+			"alpn_challenge_port":      1500,
 		}, "acme/", false, false},
 		{"forbid-root", map[string]interface{}{
 			"enabled":                  true,
@@ -46,6 +48,7 @@ func TestAcmeConfig(t *testing.T) {
 			"default_directory_policy": "forbid",
 			"dns_resolver":             "",
 			"eab_policy_name":          "",
+			"alpn_challenge_port":      1500,
 		}, "acme/", true, false},
 		{"sign-verbatim-root", map[string]interface{}{
 			"enabled":                  true,
@@ -54,6 +57,7 @@ func TestAcmeConfig(t *testing.T) {
 			"default_directory_policy": "sign-verbatim",
 			"dns_resolver":             "",
 			"eab_policy_name":          "",
+			"alpn_challenge_port":      1500,
 		}, "acme/", true, true},
 		{"role-root", map[string]interface{}{
 			"enabled":                  true,
@@ -62,6 +66,7 @@ func TestAcmeConfig(t *testing.T) {
 			"default_directory_policy": "role:exists",
 			"dns_resolver":             "",
 			"eab_policy_name":          "",
+			"alpn_challenge_port":      1500,
 		}, "acme/", true, true},
 		{"bad-role-root", map[string]interface{}{
 			"enabled":                  true,
@@ -70,6 +75,7 @@ func TestAcmeConfig(t *testing.T) {
 			"default_directory_policy": "role:notgood",
 			"dns_resolver":             "",
 			"eab_policy_name":          "",
+			"alpn_challenge_port":      1500,
 		}, "acme/", false, true},
 		{"disallowed-role-root", map[string]interface{}{
 			"enabled":                  true,
@@ -78,6 +84,7 @@ func TestAcmeConfig(t *testing.T) {
 			"default_directory_policy": "role:exists",
 			"dns_resolver":             "",
 			"eab_policy_name":          "",
+			"alpn_challenge_port":      1500,
 		}, "acme/", false, false},
 	}
 

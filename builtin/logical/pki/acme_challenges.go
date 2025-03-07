@@ -26,14 +26,6 @@ const (
 	ALPNProtocol       = "acme-tls/1"
 )
 
-// While this should be a constant, there's no way to do a low-level test of
-// ValidateTLSALPN01Challenge without spinning up a complicated Docker
-// instance to build a custom responder. Because we already have a local
-// toolchain, it is far easier to drive this through Go tests with a custom
-// (high) port, rather than requiring permission to bind to port 443 (root-run
-// tests are even worse).
-var ALPNPort = "443"
-
 // OID of the acmeIdentifier X.509 Certificate Extension.
 var OIDACMEIdentifier = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 1, 31}
 
