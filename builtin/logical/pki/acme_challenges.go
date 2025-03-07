@@ -469,7 +469,7 @@ func ValidateTLSALPN01Challenge(domain string, token string, thumbprint string, 
 	// >    one is returned).
 	// > 3. The ACME server initiates a TLS connection to the chosen IP
 	// >    address. This connection MUST use TCP port 443.
-	address := fmt.Sprintf("%v:"+ALPNPort, domain)
+	address := fmt.Sprintf("%v:%v", domain, config.ALPNChallengePort)
 	conn, err := dialer.Dial("tcp", address)
 	if err != nil {
 		return false, fmt.Errorf("tls-alpn-01: failed to dial host: %w", err)

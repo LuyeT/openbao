@@ -32,6 +32,7 @@ type acmeConfigEntry struct {
 	DefaultDirectoryPolicy string        `json:"default_directory_policy"`
 	DNSResolver            string        `json:"dns_resolver"`
 	EabPolicyName          EabPolicyName `json:"eab_policy_name"`
+	ALPNChallengePort      int           `json:"alpn_challenge_port"`
 }
 
 var defaultAcmeConfig = acmeConfigEntry{
@@ -42,6 +43,7 @@ var defaultAcmeConfig = acmeConfigEntry{
 	DefaultDirectoryPolicy: "sign-verbatim",
 	DNSResolver:            "",
 	EabPolicyName:          eabPolicyNotRequired,
+	ALPNChallengePort:      443,
 }
 
 func (sc *storageContext) getAcmeConfig() (*acmeConfigEntry, error) {
@@ -121,6 +123,11 @@ func pathAcmeConfig(b *backend) *framework.Path {
 				Description: `Specify the policy to use for external account binding behaviour, 'not-required', 'new-account-required' or 'always-required'`,
 				Default:     "always-required",
 			},
+			"alpn_challenge_port": {
+				Type:        framework.TypeInt,
+				Description: `Optional port in which the tls-alpn acme validation will be performed through`,
+				Default:     443,
+			},
 		},
 
 		Operations: map[logical.Operation]framework.OperationHandler{
@@ -175,6 +182,7 @@ func genResponseFromAcmeConfig(config *acmeConfigEntry, warnings []string) *logi
 			"enabled":                  config.Enabled,
 			"dns_resolver":             config.DNSResolver,
 			"eab_policy":               config.EabPolicyName,
+			"alpn_challenge_port":      config.ALPNChallengePort,
 		},
 		Warnings: warnings,
 	}
