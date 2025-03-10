@@ -251,6 +251,13 @@ func (b *backend) pathAcmeWrite(ctx context.Context, req *logical.Request, d *fr
 		config.EabPolicyName = eabPolicy.Name
 	}
 
+	if ALPNChallengePortRaw, ok := d.GetOk("alpn_challenge_port"); ok {
+		config.ALPNChallengePort = ALPNChallengePortRaw.(int)
+		if config.ALPNChallengePort < 1 || config.ALPNChallengePort > 65535 {
+			return nil, errors.New("Invalid port range. Accepted values 1-65535")
+		}
+	}
+
 	// Validate Default Directory Behavior:
 	defaultDirectoryPolicyType, err := getDefaultDirectoryPolicyType(config.DefaultDirectoryPolicy)
 	if err != nil {
